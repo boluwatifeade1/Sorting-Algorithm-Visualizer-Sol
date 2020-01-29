@@ -8,6 +8,14 @@ class Array:
 
     full_array = None
 
+    def __init__(self, values, lower_index=0):
+        self.lower_index = lower_index
+        self.values = list(values)
+
+        if Array.full_array == None:
+            Array.full_array = list(values)
+            self.plot()
+    
     def plot(self):
         if not test:
             vs.plot(Array.full_array)
@@ -17,14 +25,6 @@ class Array:
             self.values[i] = values[i]
         for i in range(len(self.values)):
             Array.full_array[self.lower_index + i] = values[i]
-            self.plot()
-
-    def __init__(self, values, lower_index=0):
-        self.lower_index = lower_index
-        self.values = list(values)
-
-        if Array.full_array == None:
-            Array.full_array = list(values)
             self.plot()
 
     def swap(self, index1, index2):
@@ -212,3 +212,31 @@ def quick_sort(nums):  # n^2
             _quick_sort(items, split_index + 1, high)
 
     _quick_sort(nums, 0, nums.get_len() - 1)
+
+
+def shell_sort(nums):
+  #get the length of the array nums
+  length = nums.get_len()
+  #initilize with a relatively large gap, this gap will be reduced on iteration
+  length_gap = length//2
+  
+  #perform gapped insertion sort for the gap size of length_gap
+  while length_gap > 0:
+  
+    for i in range(length_gap,length):
+      #iterate through array and add ith element that have been gap sorted
+      #save ith array element  in a temp variable 
+      temp_variable = nums.values[i]
+      j = i
+
+      #continue shifting gap-sorted elements until correct location for the array's ith element is found
+     
+      while j>= length_gap and nums.values[j - length_gap] > temp_variable:
+        nums.set(j,nums.values[j - length_gap])
+        j -= length_gap
+      
+      #here the temp_variable which is the initial arrays ith element is set to it's correct location 
+      nums.set(j,temp_variable)
+
+      #reduce gap length on every iteration
+    length_gap // = 2
