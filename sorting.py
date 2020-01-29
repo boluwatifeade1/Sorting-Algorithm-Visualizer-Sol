@@ -239,4 +239,4 @@ def shell_sort(nums):
       nums.set(j,temp_variable)
 
       #reduce gap length on every iteration
-    length_gap // = 2
+    length_gap = length_gap//2
